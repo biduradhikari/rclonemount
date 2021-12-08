@@ -7,4 +7,4 @@ If all remotes are already mounted, a dialog box says so.
 
 Unmounting should be done from OS.
 
-# first project
+-- first project
