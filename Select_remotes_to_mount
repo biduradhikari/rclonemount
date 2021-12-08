@@ -15,22 +15,22 @@
 
 ######## Set these first ###############
 MountDirectory=~/.PATH-TO-MOUNT-DIRECTORY
-# ICON=/PATH-TO-ICON-FILE								# UNCOMMENT IF YOU HAVE AN ICON FILE (.icns file in mac)
+# ICON=/PATH-TO-ICON-FILE				# UNCOMMENT IF YOU HAVE AN ICON FILE (.icns file in mac)
 CHECKFILE=".metadata_never_index" 			# create this file (or any desired file, maybe .rclonecheck) in the root of ALL your remotes first
- 																				# .metadata_never_index file tells the MacOS spotlight not to index files in the remote.
+ 							# .metadata_never_index file tells the MacOS spotlight not to index files in the remote.
 ########################################
 
 
-array=()																# to store remote names for display in dialog
+array=()						# to store remote names for display in dialog
 while read -r line
 do
 	CHECKMPOINT="$MountDirectory/$line"
-	if [ ! -f "$CHECKMPOINT/$CHECKFILE" ]; then		# if checkfile exists, remote is already mounted
-		array+=$line																# only remotes not already mounted are added to array
-		array+=" "																	# if spaces not added between names, the dialog will throw a single selection
+	if [ ! -f "$CHECKMPOINT/$CHECKFILE" ]; then	# if checkfile exists, remote is already mounted
+		array+=$line				# only remotes not already mounted are added to array
+		array+=" "				# if spaces not added between names, the dialog will throw a single selection
 	fi
 done <<< "$(/usr/local/bin/rclone listremotes)"
-if (( ${#array[@]} == 0 )); then								# all of the remotes mounted, array empty
+if (( ${#array[@]} == 0 )); then			# all of the remotes mounted, array empty
 		zenity --warning -text 'No drives left to mount!' & exit 0
 else
 		output=$(zenity --list -multiple  -ok-label Mount $array)
