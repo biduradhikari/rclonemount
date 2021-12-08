@@ -1,16 +1,16 @@
 #!/bin/bash
 
-#####################################################################################################################################
+#####################################################################################################################################################
 # IMPORTANT!!
 # ‾‾‾‾‾‾‾‾‾
-# Follow your usual method to open ALL your remotes one by one and create a file named in the CHECKFILE below (line 11)
+# Follow your usual method to open ALL your remotes one by one and create a file named in the CHECKFILE below (line 11). You can create your own file.
 # Change the CHECKFILE variable with the same name.
 # This step is crucial because this is how the script checks if remote is mounted.
 #
 # Another thing to note: Do not use mounted remotes to copy/sync large or many files. It is better to use the appropriate commands.
 #
 # SCRIPT DEVELOPED BY BIDURADHIKARI (biduradhikari@gmail.com)
-#####################################################################################################################################
+#####################################################################################################################################################
 
 
 ######## Set these first ###############
