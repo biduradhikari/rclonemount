@@ -7,7 +7,7 @@ If all remotes are already mounted, a dialog box says so.
 
 Unmounting should be done from OS.
 
-Download the script and run chmod -x for it
+Download the script and run chmod -x for it.
 This script has been tested on a Mac.
 Testing on linux/ script for linux will follow shortly.
 
