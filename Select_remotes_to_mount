@@ -20,6 +20,13 @@ CHECKFILE=".metadata_never_index" 			# create this file (or any desired file, ma
  																				# .metadata_never_index file tells the MacOS spotlight not to index files in the remote.
 ########################################
 
+ping -c 1 -q google.com >&/dev/null
+if [ $? -eq 0 ]; then
+    :
+else
+  zenity --warning -text "Please check network connection." &
+  exit 0
+fi
 
 array=()																# to store remote names for display in dialog
 while read -r line
