@@ -7,4 +7,8 @@ If all remotes are already mounted, a dialog box says so.
 
 Unmounting should be done from OS.
 
-# first project
+Download the script and run chmod -x for it.
+This script has been tested on a Mac.
+Testing on linux/ script for linux will follow shortly.
+
+Tip: to make things cleaner, on a Mac, you can create an app in Automator and choose "run shell script" option. Then drag and drop this script into the automator app. This won't produce terminal window and will look much cleaner.
