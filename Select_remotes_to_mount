@@ -1,26 +1,12 @@
 #!/bin/bash
 
-#####################################################################################################################################
-# IMPORTANT!!
-# ‾‾‾‾‾‾‾‾‾
-# Follow your usual method to open ALL your remotes one by one and create a file named in the CHECKFILE below (line 11)
-# Change the CHECKFILE variable with the same name.
-# This step is crucial because this is how the script checks if remote is mounted.
-#
-# Another thing to note: Do not use mounted remotes to copy/sync large or many files. It is better to use the appropriate commands.
-#
 # SCRIPT DEVELOPED BY BIDURADHIKARI (biduradhikari@gmail.com)
-#####################################################################################################################################
 
+# ICON=/PATH-TO-ICON-FILE								   # UNCOMMENT IF YOU HAVE AN ICON FILE (.icns file in mac)
 
-######## Set these first ###############
-MountDirectory=~/.PATH-TO-MOUNT-DIRECTORY
-# ICON=/PATH-TO-ICON-FILE								# UNCOMMENT IF YOU HAVE AN ICON FILE (.icns file in mac)
-CHECKFILE=".metadata_never_index" 			# create this file (or any desired file, maybe .rclonecheck) in the root of ALL your remotes first
- 																				# .metadata_never_index file tells the MacOS spotlight not to index files in the remote.
-########################################
+MountDirectory=~/.rclone_mount_directory  # change as needed
 
-ping -c 1 -q google.com >&/dev/null
+ping -c 1 -q google.com >&/dev/null       #CHECKING IF WE HAVE NETWORK
 if [ $? -eq 0 ]; then
     :
 else
@@ -28,15 +14,17 @@ else
   exit 0
 fi
 
-array=()																# to store remote names for display in dialog
+array=()																   # to store remote names for display in dialog
+
 while read -r line
 do
 	CHECKMPOINT="$MountDirectory/$line"
-	if [ ! -f "$CHECKMPOINT/$CHECKFILE" ]; then		# if checkfile exists, remote is already mounted
-		array+=$line																# only remotes not already mounted are added to array
-		array+=" "																	# if spaces not added between names, the dialog will throw a single selection
-	fi
+  if [[ $(mount | awk -v CHECK="$CHECKMPOINT" '$3 == CHECK {print $3}') = "" ]]; then   #remote is not mounted
+    array+=$line                                # only remotes not already mounted are added to array
+    array+=" "                                  # if spaces not added between names, the dialog will throw a single selection
+  fi
 done <<< "$(/usr/local/bin/rclone listremotes)"
+
 if (( ${#array[@]} == 0 )); then								# all of the remotes mounted, array empty
 		zenity --warning -text 'No drives left to mount!' & exit 0
 else
